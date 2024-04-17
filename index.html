@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <form id="register">
+
+        <fieldset form="register" id="registerhere">
+            <legend>Register Here: </legend>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" onblur="onblurr(event)" onfocus="onfocos(event)"><br><br>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" onblur="onblurr(event)" onfocus="onfocos(event)"><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" onblur="onblurr(event)" onfocus="onfocos(event)"><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" onblur="onblurr(event)" onfocus="onfocos(event)"><br><br>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" onblur="onblurr(event)" onfocus="onfocos(event)"><br><br>
+            <p>Please select your gender:</p>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label><br>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label><br>
+            <input type="radio" id="na" name="gender" value="na">
+            <label for="na">Prefer not to say</label><br><br>
+            <label for="interests">Users Interests: </label><br>
+            <textarea id="tArea" name="interests" onblur="onblurr(event)" onfocus="onfocos(event)"></textarea><br><br>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </fieldset>
+    </form>
+
+    <fieldset id="submissionhere" hidden>
+        <legend>Form Submission Details:</legend>
+        <div id="submission"></div>
+    </fieldset>
+
+    <script>
+        const form = document.getElementById('register');
+        const Ssubmissionhere = document.getElementById('submissionhere');
+        const submissiondiv = document.getElementById('submission');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            output();
+        });
+
+        form.addEventListener('reset', function () {
+            Ssubmissionhere.hidden = true;
+            submissiondiv.innerHTML = '';
+
+            var inputs = document.querySelectorAll('#register input[type="text"], #register input[type="password"], #register input[type="email"], #register textarea');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].style.borderColor = '';
+            }
+        });
+
+        function onblurr(event) {
+            const inputElement = event.target;
+            if (inputElement.value.trim() === '') {
+                inputElement.style.borderColor = 'red';
+            }
+        }
+
+        function onfocos(event) {
+            const inputElement = event.target;
+            inputElement.style.borderColor = 'green';
+        }
+
+        function output() {
+            Ssubmissionhere.hidden = false;
+            let outputString = '';
+
+            const name = document.getElementById('name').value;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const interest = document.getElementById('tArea').value.trim();
+
+            outputString += 'Name: ' + name + '<br>';
+            outputString += 'Username: ' + username + '<br>';
+            outputString += 'Email: ' + email + '<br>';
+            outputString += 'Address: ' + address + '<br>';
+            outputString += 'Gender: ' + (gender? gender.value : 'Not selected') + '<br>';
+            outputString += 'Interests: ' + interest + '<br>';
+
+            submissiondiv.innerHTML = outputString;
+        }
+
+    </script>
+</body>

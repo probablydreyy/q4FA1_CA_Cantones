@@ -1,0 +1,10 @@
+*{
+    font-size: 0.794vw;
+}
+
+
+body{
+    background-image:url('mewing.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
